@@ -1,5 +1,6 @@
 let uri = window.location.search.substring(1)
 let params = new URLSearchParams(uri)
+const noForm = params.get('no-form') ? params.get('no-form') !== 'false' : false
 const details = params.get('details') ? params.get('details').split(',') : ''
 const skills = params.get('skills') ? params.get('skills').split(',') : ''
 const weakness = params.get('weakness') ? params.get('weakness').split(',') : ''
@@ -7,7 +8,7 @@ const weakness = params.get('weakness') ? params.get('weakness').split(',') : ''
 const app = Vue.createApp({
   data() {
     return {
-      hideForm: params.get('no-form') || true,
+      hideForm: noForm,
       name: params.get("name") || 'Silvestar Bistrović',
       position: params.get("position") || 'Web developer',
       image: {

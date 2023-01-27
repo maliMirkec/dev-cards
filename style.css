@@ -5,6 +5,8 @@
   --color-gamma2: hsl(340, 100%, 97%);
   --color-delta: hsl(178, 100%, 85%);
   --color-delta2: hsl(178, 100%, 92%);
+  --sidebar-width: clamp(300px, 33vw, 500px);
+  --sidebar-duration: .6s;
 }
 
 * {
@@ -25,14 +27,8 @@ img {
 }
 
 .app {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
-  gap: 6rem;
+  display: grid;
   position: relative;
-  padding: 3rem;
-  min-height: 100svh;
 }
 
 .app:before {
@@ -48,7 +44,15 @@ img {
 }
 
 .app__form {
-  width: 30rem;
+  position: sticky;
+  top: 0;
+  max-height: 100svh;
+  padding: 2rem;
+  transition: transform ease-out var(--flyout-duration);
+}
+
+.opened .app__form {
+  transform: none;
 }
 
 .app__input-group {
@@ -76,6 +80,15 @@ img {
   padding: clamp(0.125rem, 0.05rem + 0.4vw, 0.25rem) clamp(0.375rem, 0.3rem + 0.4vw, 0.5rem);
   border-radius: .5rem;
   border: 1px solid;
+  cursor: pointer;
+}
+
+.app__button--toggle {
+  border-radius: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1;
 }
 
 .app__inner {
@@ -83,6 +96,7 @@ img {
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
+  min-height: 100svh;
 }
 
 .profile {
@@ -215,6 +229,21 @@ img {
 .app.animated .profile:before,
 .app.animated .profile__image img {
   animation-play-state: running;
+}
+
+@media screen and (min-width: 60em) {
+  .app {
+    grid-template-columns: 0 1fr;
+    transition: grid-template-columns ease-in-out var(--sidebar-duration);
+  }
+
+  .app.opened {
+    grid-template-columns: var(--sidebar-width) 1fr;
+  }
+
+  .app__form {
+    transform: translateX(calc(var(--sidebar-width) * -1));
+  }
 }
 
 @keyframes colorize {
