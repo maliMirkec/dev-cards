@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <link rel="stylesheet" href="./style.css">
+  <title>Dev Cards</title>
+</head>
+<body>
+  <div class="app animated" id="app">
+    <form class="app__form" action="" @submit1.prevent="getLink" v-if="!hideForm">
+      <div class="app__input-group">
+        </div>
+          <label class="app__label" for="name">Dev name</label>
+          <input class="app__input" type="text" id="name" name="name" :value="name">
+        <div class="app__input-group">
+      </div>
+      <div class="app__input-group">
+        <label class="app__label" for="position">Dev position</label>
+        <input class="app__input" type="text" id="position" name="position" :value="position">
+      </div>
+      <div class="app__input-group">
+        <label class="app__label" for="imagesrc">Dev image source</label>
+        <input class="app__input" type="text" id="imagesrc" name="imagesrc" :value="image.src">
+      </div>
+      <div class="app__input-group">
+        <label class="app__label" for="imagealt">Dev image alt text</label>
+        <input class="app__input" type="text" id="imagealt" name="imagealt" :value="image.alt">
+      </div>
+      <div class="app__input-group">
+        <label class="app__label" for="urlhref">Dev URL href</label>
+        <input class="app__input" type="text" id="urlhref" name="urlhref" :value="url.href">
+      </div>
+      <div class="app__input-group">
+        <label class="app__label" for="urltext">Dev URL text</label>
+        <input class="app__input" type="text" id="urltext" name="urltext" :value="url.text">
+      </div>
+      <div class="app__input-group">
+        <label class="app__label" for="details">Dev details</label>
+        <input class="app__input" type="text" id="details" name="details" :value="details.list">
+        <p><small>Add comma separated list</small></p>
+      </div>
+      <div class="app__input-group">
+        <label class="app__label" for="skills">Dev skills</label>
+        <input class="app__input" type="text" id="skills" name="skills" :value="skills.list">
+        <p><small>Add comma separated list</small></p>
+      </div>
+      <div class="app__input-group">
+        <label class="app__label" for="summary">Dev skills summary</label>
+        <input class="app__input" type="text" id="summary" name="summary" :value="skills.summary">
+      </div>
+      <div class="app__input-group">
+        <label class="app__label" for="experience">Dev years of experience</label>
+        <input class="app__input" type="text" id="experience" name="experience" :value="skills.experience">
+      </div>
+      <div class="app__input-group">
+        <label class="app__label" for="weakness">Weakness</label>
+        <input class="app__input" type="text" id="weakness" name="weakness" :value="weakness.list">
+        <p><small>Add comma separated list</small></p>
+      </div>
+      <div class="app__action">
+        <button class="app__button" type="submit">Create link</button>
+        <a class="app__button" href="/">Start over</a>
+      </div>
+    </form>
+    <div class="app__inner animated">
+      <div class="profile" v-show="name || position || image.src || details.list.length || skills.list.length || skills.summary || weakness.list.length || url.href">
+        <h1 class="profile__name" v-show="name">{{ name }}</h1>
+        <h2 class="profile__position" v-show="position">{{ position }}</h2>
+        <div class="profile__image" v-show="image.src">
+          <img :src="image.src" :alt="image.alt">
+        </div>
+        <ul class="profile__details" v-show="details.list.length">
+          <li v-for="detail in details.list">{{ detail }}</li>
+        </ul>
+        <ul class="profile__skills" v-show="skills.list.length">
+          <li v-for="skill in skills.list">{{ skill }}</li>
+          <li>{{ skills.experience }}</li>
+        </ul>
+        <p class="profile__description" v-show="skills.summary">{{ skills.summary }}</p>
+        <div class="profile__weakness" v-show="weakness.list.length">
+          <p>
+            Weakness:
+          </p>
+          <ul>
+            <li v-for="weak in weakness.list">{{ weak }}</li>
+          </ul>
+        </div>
+        <a class="profile__url" :href="url.href" v-show="url.href">{{ url.text }}</a>
+      </div>
+    </div>
+  </div>
+  <script src="./script.js"></script>
+  <script>
+    const mountedApp = app.mount('#app')
+  </script>
+</body>
+</html>
